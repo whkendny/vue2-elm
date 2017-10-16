@@ -1,5 +1,9 @@
 import App from '../App'
 
+// 子路由配置, 将组件(components)映射到路由(routes)，然后告诉 vue-router 在哪里渲染它们。
+// r => require.ensure([], () => r(require('../page/home')), 'home') 分块打包,懒加载组件
+//详见: https://router.vuejs.org/zh-cn/advanced/lazy-loading.html
+
 const home = r => require.ensure([], () => r(require('../page/home/home')), 'home')
 const city = r => require.ensure([], () => r(require('../page/city/city')), 'city')
 const msite = r => require.ensure([], () => r(require('../page/msite/msite')), 'msite')
@@ -47,8 +51,6 @@ const find = r => require.ensure([], () => r(require('../page/find/find')), 'fin
 const download = r => require.ensure([], () => r(require('../page/download/download')), 'download')
 
 
-
-
 export default [{
     path: '/',
     component: App, //顶层路由，对应index.html
@@ -72,6 +74,7 @@ export default [{
         {
             path: '/msite',
             component: msite,
+            // 设置缓存当前路由下的页面
             meta: { keepAlive: true },
         },
         //特色商铺列表页
@@ -163,6 +166,7 @@ export default [{
                 component: service,
             },]
         },
+        
         //修改密码页
         {
             path: '/forget',
